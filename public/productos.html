@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="products"></div>
+
+    <script>
+
+        const params = new URLSearchParams(window.location.search);
+        const family = params.get('family');
+        const title = params.get('title')?.toLowerCase();
+
+        let url = `/api/productos`
+
+        if (family){
+            url+=`?family=${family}`
+        }
+        if (title){
+            url+=`?title=${title}`
+        }
+
+
+        fetch(url)
+            .then(response => response.json())
+            .then(products => {
+
+                const page = document.getElementById('products')
+                const allProducts = document.createElement('div')
+                const buscador = document.createElement('div')
+
+                const header = document.createElement('header')
+                header.style.backgroundColor = 'black'
+
+                const nav = document.createElement('nav')
+
+                const navList = document.createElement('ul')
+                navList.style.listStyle = 'none'
+                navList.classList.add('navList')
+
+                const createNavBarItem = (titulo, link) => {
+                    const navItem = document.createElement('li')
+                    const item = document.createElement('a')
+                    item.textContent = titulo
+                    item.href = link
+                    item.classList.add('itemNav')
+                    navItem.appendChild(item)
+                    navList.appendChild(navItem)
+                    nav.appendChild(navList)
+                    header.appendChild(nav)
+                    page.appendChild(header)
+                }
+
+                createNavBarItem('Inicio', '/inicio.html')
+                createNavBarItem('Productos', '/logistica.html')
+                createNavBarItem('Pagos', '/pagos.html')
+
+                const divPag = document.createElement('div')
+                const divTextPag = document.createElement('a')
+                divTextPag.textContent = 'Productos'
+                divTextPag.href=`/productos.html`
+                divTextPag.classList.add('divTextPag')
+                divPag.classList.add('divPag')
+                divTextPag.classList.add('divTextPag')
+                divPag.appendChild(divTextPag)
+
+                let divProductPadre = document.createElement('div')
+
+                products.forEach(element => {
+                    const div = document.createElement('div')
+                    const divImagen = document.createElement('div')
+                    const divData = document.createElement('div')
+                    const img = document.createElement('img')
+                    const title = document.createElement('h3')
+                    const description = document.createElement('p')
+                    const precio = document.createElement('h4')
+                    const buttonCompra = document.createElement('button')
+                    const divCompra = document.createElement('div')
+
+                    title.classList.add('tituloProducto')
+                    img.src = `/uploads/${element.imagen}`
+                    img.alt = element.title;
+                    img.classList.add('imgProduct')
+                    title.textContent = element.title
+                    description.textContent = element.description
+                    precio.textContent = `$ ${element.precio}`
+                    buttonCompra.textContent = `Agregar al carrito`
+                    buttonCompra.classList.add('btn')
+                    buttonCompra.classList.add('colorButton')
+                    divCompra.appendChild(buttonCompra)
+                    divCompra.classList.add('divCompra')
+                    divImagen.classList.add('subBloqueProduct')
+                    divData.classList.add('subBloqueProduct')
+                    divImagen.appendChild(img)
+                    divData.appendChild(title)
+                    // divData.appendChild(description)
+                    precio.classList.add('precioPageProducto')
+                    divData.appendChild(precio)
+                    divData.appendChild(divCompra)
+                    div.appendChild(divImagen)
+                    div.appendChild(divData)
+                    title.classList.add('marginProduct')
+                    description.classList.add('marginProduct')
+                    precio.classList.add('marginProduct')
+                    div.classList.add('bloquePageProduct')
+                    divProductPadre.appendChild(div)
+                });
+
+                divProductPadre.classList.add('contenedorProducts')
+
+                page.appendChild(divPag)
+
+                allProducts.appendChild(divProductPadre)
+
+                const buttonCategoria = document.createElement('button')
+                const menuCategorias = document.createElement('div')
+                menuCategorias.classList.add('menuCategorias')
+                menuCategorias.style.display = 'none' // Oculto inicialmente
+
+                menuCategorias.innerHTML = `
+                <ul>
+                    <li><a href="/productos.html?family=cubiertas">Cubiertas</a></li>
+                    <li><a href="#">Cascos</a></li>
+                    <li><a href="/productos.html?family=cadena">Cadenas</a></li>
+                </ul>
+                `
+
+                buttonCategoria.textContent = "CATEGORIAS >"
+                buttonCategoria.classList.add('hamburger-btn')
+
+                const divCategorias = document.createElement('div')
+
+                divCategorias.appendChild(buttonCategoria)
+                divCategorias.appendChild(menuCategorias)
+                divCategorias.classList.add('divCategorias')
+
+                buscador.appendChild(divCategorias)
+
+
+                buttonCategoria.addEventListener('click', () => {
+                    if (menuCategorias.style.display === 'none') {
+                        menuCategorias.style.display = 'block'
+                    } else {
+                        menuCategorias.style.display = 'none'
+                    }
+                })
+
+                buscador.classList.add('buscador')
+
+                const unirPages = document.createElement('div')
+                unirPages.classList.add('unirPages')
+                unirPages.appendChild(buscador)
+                unirPages.appendChild(allProducts)
+                page.appendChild(unirPages)
+
+            })
+
+
+
+    </script>
+</body>
+
+</html>

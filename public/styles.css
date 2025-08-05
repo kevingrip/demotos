@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+
+.tituloProducto {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgb(95, 95, 95);
+    height: 5vh;
+}
+
+.precioProducto {
+    height: 10vh;
+    font-family: 'Nunito', Helvetica, Arial, sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #000;
+    display: flex;
+    align-items: center;
+}
+
+.precioPageProducto {
+    height: 7vh;
+    font-family: 'Nunito', Helvetica, Arial, sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #000;
+    display: flex;
+    align-items: center;
+}
+
+
+
+.bloqueProduct {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 5px;
+    /* height: 30vh; */
+    width: 17%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    height: 60vh;
+    margin: 20px;
+
+    /* sombra para el bloque */
+    
+}
+
+.bloquePageProduct {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 5px;
+    /* height: 30vh; */
+    width: 200px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    height: 50vh;
+    margin: 10px;
+    /* sombra para el bloque */
+    
+}
+
+.subBloqueProduct {
+    height: 50%;
+    
+}
+
+.imgProduct {
+    width: 100%;
+    height: 100%;
+}
+
+.contenedorProducts {
+    display: flex;
+    flex-direction: row;
+}
+
+.divCompra{
+    display: flex;
+    justify-content: center;
+}
+
+
+.marginProduct {
+    margin: 10px;
+}
+
+body {
+    background: #f9f9f9 !important;
+    font-family: sans-serif;
+}
+
+.colorButton{
+    color: white !important;
+    background-color: rgb(24, 158, 24) !important;
+    width: 80%;
+    font-weight: 700 !important;
+
+}
+
+.navList{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100px;
+    margin: 0;
+}
+
+.itemNav{
+    text-decoration:none;
+    color: goldenrod;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: larger;
+}
+
+.divPag{
+    display: flex;
+    background-color: white;
+    height: 100px;
+}
+
+.divTextPag{
+    font-size: 30px;
+    font-weight: 700;
+    margin: 30px;
+    margin-left: 90px;
+}
+
+.unirPages{
+    display: flex;
+    flex-direction: row;
+}
+
+.buscador{
+    width: 25%;
+    display: flex;
+    justify-content: center;
+}
+
+.buscador button {
+    margin-top: 20px;
+    height: auto;
+    padding: 10px 20px;
+    align-self: flex-start; /* evita que se estire en flex */
+    width: fit-content;
+}
+
+.divCategorias{
+    display: flex;
+    flex-direction: column;
+}
+
+.hamburger-btn {
+  font-size: 18px;
+  background: black;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.menuCategorias ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: #f2f2f2;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.menuCategorias ul li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.menuCategorias ul li:last-child {
+  border-bottom: none;
+}
+
+.menuCategorias ul li a {
+  text-decoration: none;
+  color: black;
+}
+
+.divTextPag{
+    text-decoration: none;
+    color: black;
+}
+
+.divTextPag:hover{
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.649);
+}
