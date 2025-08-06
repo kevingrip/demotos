@@ -20,18 +20,22 @@ const upload = multer({ storage });
 
 router.get('/inicio', async (req, res) => {
     const result = await productManager.getProducts()
+    console.log(result)
     res.json(result)
 })
 
 
 router.get('/productos', async (req, res) => {
-    const { family, title } = req.query;
+    const { family, title, codigo } = req.query;
 
-    // Armar filtro MongoDB vacío
     const filtro = {};
 
     if (family) {
         filtro.familia = family.toLowerCase() ; 
+    }
+
+    if (codigo) {
+        filtro.codigo = codigo ; 
     }
 
     if (title) {
@@ -40,7 +44,7 @@ router.get('/productos', async (req, res) => {
 
     try {
         const result = await productManager.getProductsByCategory(filtro);
-        console.log(filtro)
+        console.log(result)
         return res.json(result);
     } catch (error) {
         console.error('Error al buscar productos:', error);
@@ -48,6 +52,16 @@ router.get('/productos', async (req, res) => {
     }
 });
 
+router.delete('/delete/:codigo', async (req, res) => {
+    try {
+        const codigo = req.params.codigo
+        await productManager.deleteProduct(codigo)
+        res.json({ mensaje: 'Producto borrado correctamente' });
+
+    } catch (error) {
+        console.error(error.message)
+    }
+})
 
 
 router.post('/newproduct', upload.single('imagen'), async (req, res) => {
