@@ -20,10 +20,20 @@ const newProduct = async(product) =>{
     }    
 }
 
+const deleteProduct = async(codigo) =>{
+    try {
+        await productModel.deleteOne({codigo});
+        console.log('PRODUCTO BORRADO CORRECTAMENTE')
+    } catch (error) {
+        console.error(error.message)
+    }
+}
+
 const productManager = {
     getProducts,
     newProduct,
-    getProductsByCategory
+    getProductsByCategory,
+    deleteProduct
 };
 
 export default productManager;
