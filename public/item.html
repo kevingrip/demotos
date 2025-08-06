@@ -13,29 +13,33 @@
 
 <body>
 
-    <div id="index"></div>
+    <div id="products"></div>
 
     <script>
 
-        fetch('/api/inicio')
+        const params = new URLSearchParams(window.location.search);
+        const codigo = params.get('codigo')?.toLowerCase();
+
+        let url = `/api/productos?codigo=${codigo}`
+
+
+        fetch(url)
             .then(response => response.json())
             .then(products => {
 
-                console.log(products)
 
-                const index = document.getElementById('index')
+                const page = document.getElementById('products')
+                const allProducts = document.createElement('div')
+                const buscador = document.createElement('div')
 
                 const header = document.createElement('header')
                 header.style.backgroundColor = 'black'
 
                 const nav = document.createElement('nav')
-                const secondNav = document.createElement('nav')
 
                 const navList = document.createElement('ul')
-                const secondNavList = document.createElement('ul')
                 navList.style.listStyle = 'none'
                 navList.classList.add('navList')
-                secondNavList.classList.add('secondNavList')
 
                 const createNavBarItem = (titulo, link) => {
                     const navItem = document.createElement('li')
@@ -47,24 +51,10 @@
                     navList.appendChild(navItem)
                     nav.appendChild(navList)
                     header.appendChild(nav)
-                    index.appendChild(header)
-                }
-
-                const createSecondNavBarItem = (titulo, link) => {
-                    const navItem = document.createElement('li')
-                    const item = document.createElement('a')
-                    item.textContent = titulo
-                    item.href = link
-                    navItem.appendChild(item)
-                    item.classList.add('secondNavItem')
-                    secondNavList.appendChild(navItem)
-                    secondNav.appendChild(secondNavList)
-                    header.appendChild(secondNav)
-                    index.appendChild(header)
+                    page.appendChild(header)
                 }
 
                 createNavBarItem('Inicio', '/inicio.html')
-
                 const inputBuscador = document.createElement('input')
                 inputBuscador.type = 'text'
                 inputBuscador.placeholder = '    Buscar producto...'
@@ -72,10 +62,6 @@
                 navList.appendChild(inputBuscador)
 
                 createNavBarItem('Carrito', '/cart.html')
-                createSecondNavBarItem('Productos', '/productos.html')
-                createSecondNavBarItem('Envios', '/productos.html')
-                createSecondNavBarItem('Ubicacion', '/productos.html')
-                createSecondNavBarItem('Medios de pago', '/productos.html')
 
                 inputBuscador.addEventListener('keydown', async (e) => {
                     if (e.key === 'Enter') {
@@ -91,71 +77,77 @@
                     }
                 })
 
-
+                const divPag = document.createElement('div')
+                const divTextPag = document.createElement('a')
+                divTextPag.textContent = 'Productos'
+                divTextPag.href = `/productos.html`
+                divTextPag.classList.add('divTextPag')
+                divPag.classList.add('divPag')
+                divTextPag.classList.add('divTextPag')
+                divPag.appendChild(divTextPag)
 
                 let divProductPadre = document.createElement('div')
 
                 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
                 products.forEach(element => {
-                    let cant=1
+
+                    const mayusTitle = element.title.charAt(0).toUpperCase() + element.title.slice(1);
+                    const mayusDescription = element.description.charAt(0).toUpperCase() + element.description.slice(1);
+
+                    let cant = 1
+
                     const precioProduct = (element.precio).toLocaleString('es-AR', {
                         style: 'currency',
                         currency: 'ARS',
                         minimumFractionDigits: 2
                     })
-
-                    const mayusElement = element.title.charAt(0).toUpperCase() + element.title.slice(1);
-
                     const div = document.createElement('div')
-                    const divData = document.createElement('div')
+                    const divImagen = document.createElement('div')
+                    const divDataItem = document.createElement('div')
                     const img = document.createElement('img')
-                    const divImagen = document.createElement('a')
-                    const divTitle = document.createElement('a')
                     const title = document.createElement('h3')
                     const description = document.createElement('p')
                     const precio = document.createElement('h4')
+                    const buttonCompra = document.createElement('button')
+                    const divCompra = document.createElement('div')
 
-                    divTitle.appendChild(title)
-                    divImagen.href = `item.html?codigo=${element.codigo}`
-                    divTitle.href = `item.html?codigo=${element.codigo}`
-                    divTitle.classList.add('divTitle')
-
-
-                    title.classList.add('tituloProducto')
+                    title.classList.add('tituloProductoItem')
                     img.src = `/uploads/${element.imagen}`
                     img.alt = element.title;
-                    img.classList.add('imgProduct')
-                    title.textContent = mayusElement
-                    description.textContent = element.description
-                    precio.textContent = precioProduct
-                    divImagen.classList.add('subBloqueProduct')
-                    divData.classList.add('subBloqueProduct')
+                    img.classList.add('imgProductItem')
+                    title.textContent = mayusTitle
+                    description.textContent = mayusDescription
+                    precio.textContent = `${precioProduct}`
+                    description.classList.add('description')
+                    buttonCompra.textContent = `Agregar al carrito`
+                    buttonCompra.classList.add('btn')
+                    buttonCompra.classList.add('colorButton')
+                    divCompra.appendChild(buttonCompra)
+                    divImagen.classList.add('divImg')
+                    divDataItem.classList.add('divDataItem')
                     divImagen.appendChild(img)
-                    divData.appendChild(divTitle)
-                    // divData.appendChild(description)
-                    precio.classList.add('precioProducto')
-                    divData.appendChild(precio)
-                    div.appendChild(divImagen)
-                    div.appendChild(divData)
-                    title.classList.add('marginProduct')
-                    description.classList.add('marginProduct')
-                    precio.classList.add('marginProduct')
-                    div.classList.add('bloqueProduct')
-                    divProductPadre.appendChild(div)
+                    divDataItem.appendChild(title)
+                    divDataItem.appendChild(description)
+                    precio.classList.add('precioPageProducto')
+                    divDataItem.appendChild(precio)
+
+                    const divTransfer = document.createElement('div')
+                    const transfer = document.createElement('p')
+                    transfer.classList.add('transfer')
+                    transfer.textContent='10% de descuento pagando con Transferencia o depósito'
+                    divDataItem.appendChild(transfer)
 
                     const buttonCantRest = document.createElement('button')
                     const buttonCantSum = document.createElement('button')
                     const cantidad = document.createElement('p')
-                    const buttonCompra = document.createElement('button')
                     const divCantidad = document.createElement('div')
-                    const divCompra = document.createElement('div')
                     const divCarrito = document.createElement('div')
 
                     cantidad.textContent = cant
-                    buttonCantRest.classList.add('buttonCant')
-                    buttonCantSum.classList.add('buttonCant')
-                    cantidad.classList.add('cant')
+                    buttonCantRest.classList.add('buttonCantItem')
+                    buttonCantSum.classList.add('buttonCantItem')
+                    cantidad.classList.add('cantItem')
                     buttonCantRest.textContent = '-'
                     buttonCantSum.textContent = '+'
                     buttonCantSum.addEventListener('click', () => {
@@ -172,25 +164,32 @@
                     buttonCompra.classList.add('btn')
                     buttonCompra.classList.add('colorButton')
                     divCarrito.appendChild(buttonCompra)
-                    divCarrito.classList.add('divCarrito')
+                    divCarrito.classList.add('divCarritoItem')
+
                     divCantidad.appendChild(buttonCantRest)
                     divCantidad.appendChild(cantidad)
                     divCantidad.appendChild(buttonCantSum)
-                    divCantidad.classList.add('divCantidad')
+                    divCantidad.classList.add('divCantidadItem')
                     divCompra.appendChild(divCantidad)
                     divCompra.appendChild(divCarrito)
-                    divCompra.classList.add('divCompra')
-                    divData.appendChild(divCompra)                   
-                    
+                    divCompra.classList.add('divCompraItem')
 
-                    buttonCompra.addEventListener('click',() => {
-                        const productsCart = cart.find(item=>item.codigo===element.codigo)
-                        if (productsCart){
-                            productsCart.cantidad+=cant
-                        }else{
-                            cart.push({codigo:element.codigo,cantidad:cant})
+                    divDataItem.appendChild(divCompra)
+                    div.appendChild(divImagen)
+                    div.appendChild(divDataItem)
+                    title.classList.add('marginProduct')
+                    description.classList.add('marginProduct')
+                    precio.classList.add('marginProduct')
+                    div.classList.add('bloqueItemProduct')
+                    divProductPadre.appendChild(div)
+
+                    buttonCompra.addEventListener('click', () => {
+                        const productsCart = cart.find(item => item.codigo === element.codigo)
+                        if (productsCart) {
+                            productsCart.cantidad += cant
+                        } else {
+                            cart.push({ codigo: element.codigo, cantidad: cant })
                         }
-                        console.log(cart)
                         localStorage.setItem('cart', JSON.stringify(cart));
 
                         Swal.fire({
@@ -207,7 +206,13 @@
 
                 divProductPadre.classList.add('contenedorProducts')
 
-                index.appendChild(divProductPadre)
+                page.appendChild(divPag)
+
+                allProducts.appendChild(divProductPadre)
+
+                buscador.classList.add('buscador')
+
+                page.appendChild(allProducts)
 
             })
 

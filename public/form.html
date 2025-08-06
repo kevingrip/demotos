@@ -5,32 +5,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+
 </head>
 
 <body>
 
-    <h1>Nuevo Producto</h1>
+    <div class="divForm">
+        <h1>Nuevo Producto</h1>
+    </div>
 
-    <form id="formularioProducto">
-        <input type="text" name="title" placeholder="Título" required><br>
-        <input type="text" name="description" placeholder="Descripción" required><br>
-        <input type="number" name="precio" placeholder="Precio" required><br>
-        <input type="text" name="codigo" placeholder="Código" required><br>
-        <input type="number" name="cantidad" placeholder="Cantidad" required><br>
-        <input type="text" name="categoria" placeholder="Categoría" required><br>
-        <input type="text" name="familia" placeholder="Familia" required><br>
-        <input type="text" name="condicion" placeholder="Condición" required><br>
-        <input type="text" name="origen" placeholder="Origen" required><br>
-        <input type="file" name="imagen" accept="image/*" required><br>
 
-        <button type="submit">Guardar Producto</button>
-    </form>
+    <div class="divForm">
+        <form class='form' id="formularioProducto">
+            <input type="text" name="title" placeholder="Título" required><br>
+            <input type="text" name="description" placeholder="Descripción" required><br>
+            <input type="number" name="precio" placeholder="Precio" required><br>
+            <input type="text" name="codigo" placeholder="Código" required><br>
+            <input type="number" name="cantidad" placeholder="Cantidad" required><br>
+            <input type="text" name="categoria" placeholder="Categoría" required><br>
+            <input type="text" name="familia" placeholder="Familia" required><br>
+            <input type="text" name="condicion" placeholder="Condición" required><br>
+            <input type="text" name="origen" placeholder="Origen" required><br>
+            <input type="file" name="imagen" accept="image/*" required><br>
+
+            <button type="submit">Guardar Producto</button>
+        </form>
+    </div>
+
 
     <script>
         const form = document.getElementById('formularioProducto')
 
         form.addEventListener('submit', async (element) => {
             element.preventDefault(); //evita que se recargue la pagina automaticamente al presionar submit
+
+            const camposTexto = ['title', 'description', 'codigo', 'categoria', 'familia', 'condicion', 'origen'];
+
+            camposTexto.forEach(name => {
+                const input = form.elements[name];
+                if (input && typeof input.value === 'string') {
+                    input.value = input.value.toLowerCase();
+                }
+            });
 
             const formData = new FormData(form) //convierte el form en un objeto
             const data = Object.fromEntries(formData.entries()); //convierte el form en un objeto
