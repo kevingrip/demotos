@@ -20,7 +20,6 @@ const upload = multer({ storage });
 
 router.get('/inicio', async (req, res) => {
     const result = await productManager.getProducts()
-    console.log(result)
     res.json(result)
 })
 
@@ -44,7 +43,6 @@ router.get('/productos', async (req, res) => {
 
     try {
         const result = await productManager.getProductsByCategory(filtro);
-        console.log(result)
         return res.json(result);
     } catch (error) {
         console.error('Error al buscar productos:', error);

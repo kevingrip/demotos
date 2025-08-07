@@ -6,6 +6,8 @@ import rutas from './routes/index.routes.js'
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
+import { engine } from 'express-handlebars';
+
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -22,6 +24,7 @@ mongoose.connect(process.env.MONGO_URI)
     
 
 const app = express()
+
 app.use(express.json());
 
 app.use('/api', rutas)
