@@ -40,5 +40,5 @@ if (!fs.existsSync(uploadsPath)) {
 
 
 app.listen(PORT, () => {
-    console.log(`Servidor levantado en http://localhost:${PORT}/productos.html`)
+    console.log(`Servidor levantado en http://localhost:${PORT}/inicio.html`)
 })

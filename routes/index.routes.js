@@ -20,7 +20,8 @@ const upload = multer({ storage });
 
 router.get('/inicio', async (req, res) => {
     const result = await productManager.getProducts()
-    res.json(result)
+    const categories = await productManager.getCategories()
+    res.json({result,categories})
 })
 
 
@@ -64,9 +65,20 @@ router.delete('/delete/:codigo', async (req, res) => {
 
 router.post('/newproduct', upload.single('imagen'), async (req, res) => {
     try {
-        const newProduct = {...req.body, imagen: req.file.filename}
-        await productManager.newProduct(newProduct)
+        const dataProduct = {...req.body, imagen: req.file.filename}
+        await productManager.newProduct(dataProduct)
         res.json({ mensaje: 'Producto creado correctamente' });
+
+    } catch (error) {
+        console.error(error.message)
+    }
+})
+
+router.post('/newcategory', upload.single('imagen'), async (req, res) => {
+    try {
+        const dataCategory = {...req.body, imagen: req.file.filename}
+        await productManager.newcategory(dataCategory)
+        res.json({ mensaje: 'Categoria creada correctamente' });
 
     } catch (error) {
         console.error(error.message)

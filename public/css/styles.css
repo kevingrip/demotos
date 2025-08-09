@@ -46,12 +46,12 @@
     align-items: center;
 }
 
-.divCart{
+.divCart {
     display: flex;
     flex-direction: row;
 }
 
-.imgCart{
+.imgCart {
     width: 4vw;
 }
 
@@ -131,22 +131,32 @@
 }
 
 header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000; /* para que quede arriba de otros elementos */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    /* para que quede arriba de otros elementos */
 }
 
-body {
-  padding-top: 150px; /* Ajusta este valor al alto de tu header para que el contenido no quede tapado */
+.marginBody {
+    padding-top: 150px;
+    /* Ajusta este valor al alto de tu header para que el contenido no quede tapado */
 }
 
-.contenedorProducts {
-    margin-top: 60px;
-    display: flex;
-    flex-wrap: wrap;
+
+.marginBodyItem {
+    padding-top: 190px;
+    /* Ajusta este valor al alto de tu header para que el contenido no quede tapado */
 }
+
+.titlesCart {
+    font-family: 'Fira Sans';
+    font-weight: 600;
+
+}
+
+
 
 .divCompra {
     display: flex;
@@ -159,6 +169,7 @@ body {
     flex-direction: row;
     justify-content: center;
     height: 6.5vh;
+    margin-top: 120px;
 }
 
 
@@ -191,7 +202,7 @@ body {
     margin: 10px;
 }
 
-.centrar{
+.centrar {
     display: flex;
     justify-content: center;
 }
@@ -207,6 +218,22 @@ body {
     width: 80%;
     font-weight: 700 !important;
 
+}
+
+.colorVaciar {
+    color: white !important;
+    background-color: orangered !important;
+    font-weight: 500 !important;
+    font-size: 15px !important;
+}
+
+.nextPage {
+    color: white !important;
+    background-color: rgb(24, 158, 24) !important;
+    font-weight: 500 !important;
+    font-size: 15px !important;
+    width: 9vw;
+    margin-left: 15px;
 }
 
 .navList {
@@ -263,29 +290,34 @@ body {
 .unirPages {
     display: flex;
     flex-direction: row;
+    margin-top: 260px;
 }
 
-.buscador {
-    width: 25%;
-    display: flex;
-    justify-content: center;
-}
 
-.buscador button {
-    margin-top: 20px;
-    height: auto;
+.divContenedorCategorias button {
     padding: 10px 20px;
     align-self: flex-start;
     /* evita que se estire en flex */
     width: fit-content;
 }
 
+.divContenedorCategorias {
+    width: 320px;
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0;
+
+}
+
 .divCategorias {
-    margin-top: 50px;
     display: flex;
     flex-direction: column;
     position: fixed;
+}
 
+.contenedorProducts {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .hamburger-btn {
@@ -347,21 +379,27 @@ body {
 }
 
 .divResumenVentaCart {
-    margin: 5px;
     display: flex;
     flex-direction: row;
     background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-    height: 8vh;
-    width: 70vw;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+    height: 7vh;
+    width: 100%;
     align-items: center;
-    margin-right: 30px;
+
+}
+
+.divGeneral {
+    border-radius: 10px;
+    margin-top: 180px;
+    margin-bottom: 20px;
+    margin-inline: 50px;
+    min-height: 70vh;
+    background-color: white
 }
 
 .divResumenVentaCart p {
     margin: 0;
-    line-height: 1.2;
 }
 
 .divGeneralCart {
@@ -371,32 +409,48 @@ body {
 }
 
 .miniImgCart {
-    height: 8vh;
-    width: 8vw;
-    margin: 30px;
+    width: 100%;
+    height: auto;
+    max-height: 6vh;
+    object-fit: contain;
+    margin: 0;
+    /* elimina margenes que rompen flex */
+}
+
+.itemResumen button.deleteItem {
+    margin: 0 auto;
+    /* centrado */
+    display: block;
+    width: 40px;
 }
 
 .itemResumen {
     flex: 1;
     /* ocupa mismo espacio que los demás */
-    text-align: start;
+    text-align: center;
     min-width: 0;
 }
 
 
-.divResumenTotal {
-    width: 150vw;
-    height: 74vh;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+
+
+.subtotalResumenTotal {
+    margin: 20px;
+    font-size: 3vh;
+    font-weight: 700;
+    font-family: 'Fira Sans';
+
 }
 
 .displayRow {
     display: flex;
     flex-direction: row;
     margin: 10px;
+}
 
+.displayColumn {
+    display: flex;
+    flex-direction: column;
 }
 
 .titleResumenTotal {
@@ -405,24 +459,29 @@ body {
     font-weight: 600;
 }
 
-.subtotalResumenTotal {
-    margin: 20px;
-    font-size: 3vh;
-    font-weight: 400;
-}
+
 
 .emptyCart {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 83vh;
+    height: 100vh;
     background-color: black;
     color: white;
 }
 
 .emptyCartTitle {
     font-size: 3vw;
+}
+
+.divResumenTotalCart {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-right: 60px;
+    align-items: center;
+    margin-top: auto;
 }
 
 .buttonCant {
@@ -469,10 +528,10 @@ body {
     font-size: small;
 }
 
-.transfer{
-    font-family: 'Nunito','Lucida Sans';
+.transfer {
+    font-family: 'Nunito', 'Lucida Sans';
     color: blue;
-    font-size:15px;
+    font-size: 15px;
     margin-left: 20px;
     height: 5vh;
 }
@@ -497,8 +556,11 @@ body {
 
 
 .deleteItem {
+    background-color: rgba(255, 0, 0, 0.695);
+    color: white;
     border: transparent;
     border-radius: 5px;
+    width: 40px;
     margin-right: 30px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
@@ -507,7 +569,37 @@ body {
     background-color: rgba(255, 0, 0, 0.514);
 }
 
-.imgInicio{
+.imgInicio {
     height: 79vh;
     width: 100%;
+}
+
+.my-toast {
+    margin-top: 50px;
+    /* o el valor que necesites */
+}
+
+.divCategories {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+    align-items: center;
+}
+
+.iconCategoria {
+    margin-top: 20px;
+    width: 20%;
+
+}
+
+.nombreCategoria {
+    display: flex;
+    justify-content: center;
+
+}
+
+.titleCategory {
+    margin-left: 50px;
+    color: #4b4949;
 }
