@@ -29,10 +29,10 @@
         const nav1 = getNav1()
         nav2 = getNav2()
         header.appendChild(nav1)
-        if (cart.length>0){
+        if (cart.length > 0) {
           header.appendChild(nav2)
         }
-        
+
 
         page.appendChild(header)
 
@@ -73,6 +73,15 @@
         });
 
         divItemsCart.appendChild(divTitlesCart)
+
+        const buttonProduct = document.createElement("button");
+        buttonProduct.textContent = "Ir a Productos";
+        buttonProduct.classList.add('btn', 'nextPage')
+        buttonProduct.addEventListener("click", () => {
+
+          window.location.href = '/productos.html';
+        });
+
 
         cart.forEach((element) => {
           const findProduct = products.find((item) => item.codigo === element.codigo);
@@ -181,13 +190,16 @@
             }
 
             if (cart.length === 0) {
+              actualizarContadorCarrito()
               divGeneral.remove();
+              nav2.remove()
               const emptyCart = document.createElement("div");
               const title = document.createElement("p");
               title.textContent = "¡TU CARRITO ESTÁ VACÍO!";
               title.classList.add("emptyCartTitle");
               emptyCart.classList.add("emptyCart");
               emptyCart.appendChild(title);
+              emptyCart.appendChild(buttonProduct);
               page.appendChild(emptyCart);
             }
           });
@@ -213,8 +225,7 @@
           nextPage.textContent = "Avanzar";
           nextPage.classList.add('btn', 'nextPage')
           nextPage.addEventListener("click", () => {
-            
-            window.location.href='/productos.html';
+            window.location.href = '/productos.html';
           });
           divResumenTotal.appendChild(nextPage);
 
@@ -232,13 +243,6 @@
           emptyCart.classList.add("emptyCart");
           emptyCart.appendChild(title);
 
-          const buttonProduct = document.createElement("button");
-          buttonProduct.textContent = "Ir a Productos";
-          buttonProduct.classList.add('btn', 'nextPage')
-          buttonProduct.addEventListener("click", () => {
-            
-            window.location.href='/productos.html';
-          });
           emptyCart.appendChild(buttonProduct);
           page.appendChild(emptyCart);
         }
